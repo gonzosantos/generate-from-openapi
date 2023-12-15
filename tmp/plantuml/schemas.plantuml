@@ -1,54 +1,485 @@
 @startuml
 
-title OpenAPI Petstore Schemas Diagram
+title Structurizr Schemas Diagram
 
-entity ApiResponse {
-    code: Integer
-    type: String
+entity APIResponse {
+    success: Boolean
     message: String
+    revision: Integer
 }
 
-entity Category {
-    id: Long
+entity AnimationStep {
+    order: BigDecimal
+    elements: List<String>
+    relationships: List<String>
+}
+
+entity AutomaticLayout {
+    implementation: String
+    rankDirection: String
+    rankSeparation: BigDecimal
+    nodeSeparation: BigDecimal
+    edgeSeparation: BigDecimal
+    vertices: Boolean
+}
+
+entity Branding {
+    logo: String
+    font: BrandingFont
+}
+
+entity BrandingFont {
+    name: String
+    url: String
+}
+
+entity Component {
+    id: String
+    name: String
+    description: String
+    technology: String
+    tags: String
+    url: String
+    group: String
+    properties: Map
+    relationships: List<Relationship>
+    documentation: Documentation
+}
+
+entity ComponentView {
+    title: String
+    description: String
+    key: String
+    containerId: String
+    paperSize: String
+    dimensions: Dimensions
+    automaticLayout: AutomaticLayout
+    elements: List<ElementView>
+    relationships: List<RelationshipView>
+    animations: List<AnimationStep>
+    externalContainerBoundariesVisible: Boolean
+}
+
+entity Configuration {
+    styles: ConfigurationStyles
+    lastSavedView: String
+    defaultView: String
+    themes: List<String>
+    branding: Branding
+    terminology: Terminology
+    metadataSymbols: String
+}
+
+entity ConfigurationStyles {
+    elements: List<ElementStyle>
+    relationships: List<RelationshipStyle>
+}
+
+entity Container {
+    id: String
+    name: String
+    description: String
+    technology: String
+    tags: String
+    url: String
+    components: List<Component>
+    group: String
+    properties: Map
+    relationships: List<Relationship>
+    documentation: Documentation
+}
+
+entity ContainerInstance {
+    id: String
+    containerId: String
+    instanceId: BigDecimal
+    environment: String
+    tags: String
+    properties: Map
+    relationships: List<Relationship>
+    healthChecks: List<HttpHealthCheck>
+}
+
+entity ContainerView {
+    title: String
+    description: String
+    key: String
+    softwareSystemId: String
+    paperSize: String
+    dimensions: Dimensions
+    automaticLayout: AutomaticLayout
+    elements: List<ElementView>
+    relationships: List<RelationshipView>
+    animations: List<AnimationStep>
+    externalSoftwareSystemBoundariesVisible: Boolean
+}
+
+entity Decision {
+    id: String
+    date: String
+    status: String
+    title: String
+    content: String
+    format: String
+    elementId: String
+}
+
+entity DeploymentNode {
+    id: String
+    name: String
+    description: String
+    technology: String
+    environment: String
+    instances: String
+    tags: String
+    url: String
+    children: List<DeploymentNode>
+    infrastructureNodes: List<InfrastructureNode>
+    softwareSystemInstances: List<SoftwareSystemInstance>
+    containerInstances: List<ContainerInstance>
+    properties: Map
+    relationships: List<Relationship>
+}
+
+entity DeploymentView {
+    title: String
+    description: String
+    key: String
+    softwareSystemId: String
+    environment: String
+    paperSize: String
+    dimensions: Dimensions
+    automaticLayout: AutomaticLayout
+    elements: List<ElementView>
+    relationships: List<RelationshipView>
+    animations: List<AnimationStep>
+}
+
+entity Dimensions {
+    width: BigDecimal
+    height: BigDecimal
+}
+
+entity Documentation {
+    sections: List<DocumentationSection>
+    decisions: List<Decision>
+    images: List<Image>
+}
+
+entity DocumentationSection {
+    content: String
+    format: String
+    order: BigDecimal
+}
+
+entity DynamicView {
+    title: String
+    description: String
+    key: String
+    elementId: String
+    paperSize: String
+    dimensions: Dimensions
+    automaticLayout: AutomaticLayout
+    elements: List<ElementView>
+    relationships: List<RelationshipView>
+    externalBoundariesVisible: Boolean
+}
+
+entity ElementStyle {
+    tag: String
+    width: BigDecimal
+    height: BigDecimal
+    background: String
+    stroke: String
+    strokeWidth: BigDecimal
+    color: String
+    fontSize: BigDecimal
+    shape: String
+    icon: String
+    border: String
+    opacity: BigDecimal
+    metadata: Boolean
+    description: Boolean
+}
+
+entity ElementView {
+    id: String
+    x: BigDecimal
+    y: BigDecimal
+}
+
+entity FilteredView {
+    title: String
+    description: String
+    key: String
+    baseViewKey: String
+    mode: String
+    tags: List<String>
+}
+
+entity HttpHealthCheck {
+    name: String
+    url: String
+    interval: BigDecimal
+    timeout: BigDecimal
+    headers: Map
+}
+
+entity Image {
+    name: String
+    content: String
+    type: String
+}
+
+entity InfrastructureNode {
+    id: String
+    name: String
+    description: String
+    technology: String
+    environment: String
+    tags: String
+    url: String
+    properties: Map
+    relationships: List<Relationship>
+}
+
+entity Model {
+    enterprise: ModelEnterprise
+    people: List<Person>
+    softwareSystems: List<SoftwareSystem>
+    deploymentNodes: List<DeploymentNode>
+}
+
+entity ModelEnterprise {
     name: String
 }
 
-entity Order {
-    id: Long
-    petId: Long
-    quantity: Integer
-    shipDate: Date
-    status: String
-    complete: Boolean
-}
-
-entity Pet {
-    id: Long
-    category: Category
-    * name: String
-    * photoUrls: List<String>
-    tags: List<Tag>
-    status: String
-}
-
-entity Tag {
-    id: Long
+entity Person {
+    id: String
     name: String
+    description: String
+    tags: String
+    url: String
+    location: String
+    group: String
+    properties: Map
+    relationships: List<Relationship>
+}
+
+entity Relationship {
+    id: String
+    description: String
+    tags: String
+    url: String
+    sourceId: String
+    destinationId: String
+    technology: String
+    interactionStyle: String
+    linkedRelationshipId: String
+}
+
+entity RelationshipStyle {
+    tag: String
+    thickness: BigDecimal
+    color: String
+    fontSize: BigDecimal
+    width: BigDecimal
+    dashed: Boolean
+    routing: String
+    position: BigDecimal
+    opacity: BigDecimal
+}
+
+entity RelationshipView {
+    id: String
+    description: String
+    response: Boolean
+    order: String
+    vertices: List<Vertex>
+    routing: String
+    position: BigDecimal
+}
+
+entity SoftwareSystem {
+    id: String
+    name: String
+    description: String
+    location: String
+    tags: String
+    url: String
+    containers: List<Container>
+    group: String
+    properties: Map
+    relationships: List<Relationship>
+    documentation: Documentation
+}
+
+entity SoftwareSystemInstance {
+    id: String
+    softwareSystemId: String
+    instanceId: BigDecimal
+    environment: String
+    tags: String
+    properties: Map
+    relationships: List<Relationship>
+    healthChecks: List<HttpHealthCheck>
+}
+
+entity SystemContextView {
+    title: String
+    description: String
+    key: String
+    softwareSystemId: String
+    paperSize: String
+    dimensions: Dimensions
+    automaticLayout: AutomaticLayout
+    enterpriseBoundaryVisible: Boolean
+    elements: List<ElementView>
+    relationships: List<RelationshipView>
+    animations: List<AnimationStep>
+}
+
+entity SystemLandscapeView {
+    title: String
+    description: String
+    key: String
+    paperSize: String
+    dimensions: Dimensions
+    automaticLayout: AutomaticLayout
+    enterpriseBoundaryVisible: Boolean
+    elements: List<ElementView>
+    relationships: List<RelationshipView>
+    animations: List<AnimationStep>
+}
+
+entity Terminology {
+    enterprise: String
+    person: String
+    softwareSystem: String
+    container: String
+    component: String
+    code: String
+    deploymentNode: String
+    relationship: String
 }
 
 entity User {
-    id: Long
     username: String
-    firstName: String
-    lastName: String
-    email: String
-    password: String
-    phone: String
-    userStatus: Integer
+    role: String
+}
+
+entity Vertex {
+    x: BigDecimal
+    y: BigDecimal
+}
+
+entity Views {
+    systemLandscapeViews: List<SystemLandscapeView>
+    systemContextViews: List<SystemContextView>
+    containerViews: List<ContainerView>
+    componentViews: List<ComponentView>
+    dynamicViews: List<DynamicView>
+    deploymentViews: List<DeploymentView>
+    filteredViews: List<FilteredView>
+    configuration: Configuration
+}
+
+entity Workspace {
+    id: BigDecimal
+    name: String
+    description: String
+    version: String
+    thumbnail: String
+    lastModifiedDate: String
+    lastModifiedUser: String
+    lastModifiedAgent: String
+    model: Model
+    views: Views
+    documentation: Documentation
+    configuration: WorkspaceConfiguration
+    properties: Map
+}
+
+entity WorkspaceConfiguration {
+    users: List<User>
+    visibility: String
 }
 
 
-Pet -- Category : category
-Pet -- "0..*" Tag : tags
+Configuration -- ConfigurationStyles : styles
+Configuration -- Branding : branding
+Configuration -- Terminology : terminology
+InfrastructureNode -- "0..*" Relationship : relationships
+Branding -- BrandingFont : font
+Container -- "0..*" Component : components
+Container -- "0..*" Relationship : relationships
+Container -- Documentation : documentation
+SystemContextView -- Dimensions : dimensions
+SystemContextView -- AutomaticLayout : automaticLayout
+SystemContextView -- "0..*" ElementView : elements
+SystemContextView -- "0..*" RelationshipView : relationships
+SystemContextView -- "0..*" AnimationStep : animations
+WorkspaceConfiguration -- "0..*" User : users
+SoftwareSystem -- "0..*" Container : containers
+SoftwareSystem -- "0..*" Relationship : relationships
+SoftwareSystem -- Documentation : documentation
+SystemLandscapeView -- Dimensions : dimensions
+SystemLandscapeView -- AutomaticLayout : automaticLayout
+SystemLandscapeView -- "0..*" ElementView : elements
+SystemLandscapeView -- "0..*" RelationshipView : relationships
+SystemLandscapeView -- "0..*" AnimationStep : animations
+DynamicView -- Dimensions : dimensions
+DynamicView -- AutomaticLayout : automaticLayout
+DynamicView -- "0..*" ElementView : elements
+DynamicView -- "0..*" RelationshipView : relationships
+Component -- "0..*" Relationship : relationships
+Component -- Documentation : documentation
+DeploymentView -- Dimensions : dimensions
+DeploymentView -- AutomaticLayout : automaticLayout
+DeploymentView -- "0..*" ElementView : elements
+DeploymentView -- "0..*" RelationshipView : relationships
+DeploymentView -- "0..*" AnimationStep : animations
+ConfigurationStyles -- "0..*" ElementStyle : elements
+ConfigurationStyles -- "0..*" RelationshipStyle : relationships
+Views -- "0..*" SystemLandscapeView : systemLandscapeViews
+Views -- "0..*" SystemContextView : systemContextViews
+Views -- "0..*" ContainerView : containerViews
+Views -- "0..*" ComponentView : componentViews
+Views -- "0..*" DynamicView : dynamicViews
+Views -- "0..*" DeploymentView : deploymentViews
+Views -- "0..*" FilteredView : filteredViews
+Views -- Configuration : configuration
+RelationshipView -- "0..*" Vertex : vertices
+Documentation -- "0..*" DocumentationSection : sections
+Documentation -- "0..*" Decision : decisions
+Documentation -- "0..*" Image : images
+SoftwareSystemInstance -- "0..*" Relationship : relationships
+SoftwareSystemInstance -- "0..*" HttpHealthCheck : healthChecks
+ContainerInstance -- "0..*" Relationship : relationships
+ContainerInstance -- "0..*" HttpHealthCheck : healthChecks
+ComponentView -- Dimensions : dimensions
+ComponentView -- AutomaticLayout : automaticLayout
+ComponentView -- "0..*" ElementView : elements
+ComponentView -- "0..*" RelationshipView : relationships
+ComponentView -- "0..*" AnimationStep : animations
+DeploymentNode -- "0..*" DeploymentNode : children
+DeploymentNode -- "0..*" InfrastructureNode : infrastructureNodes
+DeploymentNode -- "0..*" SoftwareSystemInstance : softwareSystemInstances
+DeploymentNode -- "0..*" ContainerInstance : containerInstances
+DeploymentNode -- "0..*" Relationship : relationships
+Model -- ModelEnterprise : enterprise
+Model -- "0..*" Person : people
+Model -- "0..*" SoftwareSystem : softwareSystems
+Model -- "0..*" DeploymentNode : deploymentNodes
+ContainerView -- Dimensions : dimensions
+ContainerView -- AutomaticLayout : automaticLayout
+ContainerView -- "0..*" ElementView : elements
+ContainerView -- "0..*" RelationshipView : relationships
+ContainerView -- "0..*" AnimationStep : animations
+Person -- "0..*" Relationship : relationships
+Workspace -- Model : model
+Workspace -- Views : views
+Workspace -- Documentation : documentation
+Workspace -- WorkspaceConfiguration : configuration
 
 @enduml
